@@ -70,4 +70,4 @@ mybatis:
   type-aliases-package: com.example.demo.entity
   mapper-locations: classpath:mapper/*Mapper.xml
 logging:
-  config: classpath:log4j2.xml
+  config: classpath:log4j2_fu.xml

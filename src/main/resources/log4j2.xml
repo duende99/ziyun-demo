@@ -12,11 +12,13 @@
         <!--
             logger是单独用来指定日志的形式
             name: 指定输出日志的路
-            additivity: 输出日志是否追加在 root根目录下， 默认true， 1.如果false则只会在自己的appender中输出，不会在父logger中输出
+            additivity: 输出日志是否追加在 root根目录下， 默认true(使用默认就好)，
+                1.如果false则只会在自己的appender中输出，不会在父logger中输出，如果appender没有，则不会输出
+                2.指定 appender-ref ,如果指定，并且会处理他们的
             appender-ref: 具体要输出的地方，可以指定
          -->
         <logger name="com.example.demo.mapper" level="debug" additivity="false">
-            <appender-ref ref="Console"/>
+            <!--<appender-ref ref="Console"/>-->
         </logger>
         <root level="info">
             <appender-ref ref="Console"/>
