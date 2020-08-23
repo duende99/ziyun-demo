@@ -3,35 +3,43 @@ package com.example.demo.api;
 
 import com.example.demo.entity.User;
 import com.example.demo.mapper.UserMapper;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@Api(value = "swagger Test1Api")
 @RestController
 public class Test1Api {
 
     @Autowired
     private UserMapper userMapper;
 
-    @RequestMapping("/test")
+
+    @ApiOperation(value = "hello method test")
+    @GetMapping("/test")
+//    @RequestMapping("/test")
     @Async
-    public void test(@RequestParam("id") Integer id) {
+    @ResponseBody
+    public String test(@RequestParam("id") Integer id) {
         User user = userMapper.getUser(id);
         System.out.println("==========================");
         System.out.println(user.getUsername() + "  " + user.getPassword());
+        return user.getUsername();
     }
 
-    @RequestMapping("/get1")
+    @GetMapping("/get1")
+    @ResponseBody
     @Async
-    public void get1() {
+    public User get1() {
         User user = userMapper.getUser1();
         System.out.println("==========================");
         System.out.println(user.getUsername() + "  " + user.getPassword());
+        return user;
     }
-    @RequestMapping("/get2")
+
+    @GetMapping("/get2")
     @Async
     public void get2() {
         User user = userMapper.getUser2();
@@ -39,13 +47,13 @@ public class Test1Api {
         System.out.println(user.getUsername() + "  " + user.getPassword());
     }
 
-    @RequestMapping("/test1")
+    @GetMapping("/test1")
     @Async
     public void test1(@RequestParam("id") String id) {
         userMapper.updateUserInfo(id);
     }
 
-    @RequestMapping("/test3")
+    @GetMapping("/test3")
     public void test3(@RequestBody User user) {
         long t1 = System.currentTimeMillis();
         synchronized (this) {
@@ -55,7 +63,7 @@ public class Test1Api {
         System.out.println("-----------------" + (t2-t1));
     }
 
-    @RequestMapping("/test2")
+    @GetMapping("/test2")
     @Async
     public void test2(@RequestBody User user) {
         long t1 = System.currentTimeMillis();
@@ -64,7 +72,7 @@ public class Test1Api {
         System.out.println("================" + (t2-t1));
     }
 
-    @RequestMapping("/test4")
+    @GetMapping("/test4")
     public void test4(@RequestBody User user) {
         long t1 = System.currentTimeMillis();
         userMapper.saveUserInfo(user);
