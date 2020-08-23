@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.UserMapper" >
+
+
+    <insert id="saveUserInfo">
+        insert into user(username, password) values
+        (#{user.username},#{user.password})
+    </insert>
+
+    <insert id="updateUserInfo">
+        update user set username = 222 where id = ${id}
+    </insert>
+
+    <select id="getUser" resultType="com.example.demo.entity.User">
+        select *from user where id = #{id}
+    </select>
+
+    <select id="getUser1" resultType="com.example.demo.entity.User">
+        select *from user where id = 30302
+    </select>
+    <select id="getUser2" resultType="com.example.demo.entity.User">
+        select *from user where id = 30303
+    </select>
+</mapper>
