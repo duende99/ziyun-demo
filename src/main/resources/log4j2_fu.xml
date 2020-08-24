@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+        <!--monitorInterval是用来设置配置文件的动态加载时间的，单位是秒。-->
 <configuration monitorInterval="5">
     <!--日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
     <Properties>
