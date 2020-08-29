@@ -31,12 +31,20 @@
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
                 <!--interval属性用来指定多久滚动一次，根据当前filePattern配置 %{yyyy-MM-dd HH-mm-ss}-->
-                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <TimeBasedTriggeringPolicy interval="30" modulate="true"/>
                 <!--文件大小，当超过这个时，自动存档，压缩，并生成一个新的文件-->
-                <SizeBasedTriggeringPolicy size="200MB"/>
+                <SizeBasedTriggeringPolicy size="10KB"/>
             </Policies>
+
             <!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件开始覆盖-->
-            <DefaultRolloverStrategy max="15"/>
+            <DefaultRolloverStrategy max="7">
+                <!--删除日志 maxDepth：代表扫描的目录深度-->
+                <Delete basePath="${FILE_PATH}/" maxDepth="2">
+                    <!--<IfFileName glob="*/app-*.log.gz" />-->
+                    <IfFileName glob="${FILE_NAME}-INFO-*.log.gz" />
+                    <IfLastModified age="90d" />
+                </Delete>
+            </DefaultRolloverStrategy>
         </RollingFile>
     </appenders>
 
