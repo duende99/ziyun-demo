@@ -1,33 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Configuration后面的status，这个用于设置log4j2自身内部的信息输出，可以不设置，当设置成trace时，你会看到log4j2内部各种详细输出-->
-<!--monitorInterval：Log4j能够自动检测修改配置 文件和重新配置本身，设置间隔秒数-->
+        <!--monitorInterval是用来设置配置文件的动态加载时间的，单位是秒。-->
 <configuration monitorInterval="5">
     <!--日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
-
-    <!--变量配置-->
     <Properties>
         <!-- 这里定义两个格式化输出格式，分别用于文件日志和控制台日志（带颜色）-->
         <!-- %date表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度 %msg：日志消息，%n是换行符 -->
         <property name="LOG_PATTERN" value="%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger [%L] : %msg%n" />
-        <property name="LOG_PATTERN_HIGHLIGHT" value="%date{yyyy-MM-dd HH:mm:ss:SSS} %highlight{%5level} [%thread] %style{%logger}{bright,cyan} [%style{%L}{bright,blue}] : %msg%n" />
-
         <!-- 定义日志存储的路径，不要配置相对路径 -->
-        <property name="FILE_PATH" value="d:\logs" />
+        <property name="FILE_PATH" value="c:\logs" />
         <!--<property name="FILE_PATH" value="/Volumes/BOOTCAMP/log" />-->
         <!-- 定义日志归档压缩包名字，通常设置为项目名 -->
-        <property name="FILE_NAME" value="hangge-test" />
+        <property name="FILE_NAME" value="test" />
     </Properties>
 
     <appenders>
         <console name="Console" target="SYSTEM_OUT">
             <!--输出日志的格式-->
-            <PatternLayout pattern="${LOG_PATTERN_HIGHLIGHT}"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
         </console>
 
         <!-- 这个会打印出所有的info及以下级别的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
         <RollingFile name="RollingFileInfo" fileName="${FILE_PATH}/info.log" filePattern="${FILE_PATH}/${FILE_NAME}-INFO-%d{yyyy-MM-dd}_%i.log.gz">
         <!--<RollingFile name="RollingFileInfo" fileName="${FILE_PATH}/info.log" filePattern="${FILE_PATH}/${FILE_NAME}-INFO-%d{yyyy-MM-dd HH-mm-ss}_%i.log.gz">-->
-            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
                 <!--interval属性用来指定多久滚动一次，根据当前filePattern配置 %{yyyy-MM-dd HH-mm-ss}-->
@@ -63,6 +57,7 @@
             <appender-ref ref="RollingFileInfo"/>
         </root>
         <logger name="com.example.demo.mapper" level="debug" additivity="true">
+            <!--如果不指定appender的话，则输出到所有-->
             <!--<appender-ref ref="RollingFileInfo"/>-->
         </logger>
     </loggers>
