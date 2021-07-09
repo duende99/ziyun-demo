@@ -31,6 +31,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @EnableCaching
 public class RedisConfig extends CachingConfigurerSupport {
 
+
     /**
      * 使用Jackson2JsonRedisSerialize 替换默认序列化
      */
